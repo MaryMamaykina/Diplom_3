@@ -1,9 +1,6 @@
 import api.dto.CreateUserSuccessfulResponse;
 import api.staticmethodsandvariables.UserAPI;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,8 +20,6 @@ public class AuthorizationTest {
         WebDriverManager.chromedriver().clearDriverCache().clearResolutionCache().setup();
         webDriver = new ChromeDriver();
 
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         userMaria = new UserAPI();
         userAssesToken = userMaria.createUserMaria().as(CreateUserSuccessfulResponse.class).getAccessToken().replace("Bearer ","");
         System.out.println(userAssesToken);

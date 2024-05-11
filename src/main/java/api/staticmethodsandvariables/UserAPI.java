@@ -5,7 +5,7 @@ import ui.data.*;
 
 import static io.restassured.RestAssured.given;
 
-public class UserAPI  {
+public class UserAPI extends StellarBurgersAPI {
     private static final String handleForCreateUser = "api/auth/register";
     private static final String handleForDeleteUser = "api/auth/user";
     private static final String handleForLoginUser = "api/auth/login";
