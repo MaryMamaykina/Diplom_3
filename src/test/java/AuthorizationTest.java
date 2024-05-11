@@ -1,30 +1,51 @@
 import api.dto.CreateUserSuccessfulResponse;
 import api.staticmethodsandvariables.UserAPI;
+import data.UserWithPassword;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ui.data.*;
 import ui.page.object.*;
 
+@RunWith(Parameterized.class)
 public class AuthorizationTest {
     private WebDriver webDriver;
-    UserAPI userMaria;
+    UserAPI userAPI;
+    UserWithPassword userMamaria;
+
     private String userAssesToken;
+
+    private final String browserName;
+    public AuthorizationTest(String browserName) {
+        this.browserName = browserName;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] browsers() {
+        return new Object[][]{
+                {"Яндекс"},
+                {"Chrome"}
+        };
+    }
+
 
     @Before
     public void setup() {
         WebDriverManager.chromedriver().clearDriverCache().clearResolutionCache().setup();
+        if (browserName.equals("Яндекс")){
+            System.setProperty("webdriver.chrome.driver", "src/main/resources/yandexdriver.exe");
+        }
         webDriver = new ChromeDriver();
 
-        userMaria = new UserAPI();
-        userAssesToken = userMaria.createUserMaria().as(CreateUserSuccessfulResponse.class).getAccessToken().replace("Bearer ","");
-        System.out.println(userAssesToken);
+        userAPI = new UserAPI();
+        userMamaria = new UserWithPassword("Мария", "MaryMamaykina@mail.ru", "MaryMamaykina");
+        userAssesToken = userAPI.createUser(userMamaria).as(CreateUserSuccessfulResponse.class).getAccessToken().replace("Bearer ","");
     }
-
 
     @Test
     public void doesLoginWithLoginAccountButtonWorks (){
@@ -35,8 +56,8 @@ public class AuthorizationTest {
 
         LoginPage objLoginPage = new LoginPage(webDriver);
         objLoginPage.waitForLoadingLoginPage();
-        objLoginPage.fillInFieldEmail(Registration.EMAIL);
-        objLoginPage.fillInFieldPassword(Registration.PASSWORD);
+        objLoginPage.fillInFieldEmail(userMamaria.getEmail());
+        objLoginPage.fillInFieldPassword(userMamaria.getPassword());
         objLoginPage.clickToLoginButton();
 
         objMainPage.waitForLoadingMainPage();
@@ -54,8 +75,8 @@ public class AuthorizationTest {
 
         LoginPage objLoginPage = new LoginPage(webDriver);
         objLoginPage.waitForLoadingLoginPage();
-        objLoginPage.fillInFieldEmail(Registration.EMAIL);
-        objLoginPage.fillInFieldPassword(Registration.PASSWORD);
+        objLoginPage.fillInFieldEmail(userMamaria.getEmail());
+        objLoginPage.fillInFieldPassword(userMamaria.getPassword());
         objLoginPage.clickToLoginButton();
 
         objMainPage.waitForLoadingMainPage();
@@ -80,8 +101,8 @@ public class AuthorizationTest {
         objRegistrationPage.clickLoginButton();
 
         objLoginPage.waitForLoadingLoginPage();
-        objLoginPage.fillInFieldEmail(Registration.EMAIL);
-        objLoginPage.fillInFieldPassword(Registration.PASSWORD);
+        objLoginPage.fillInFieldEmail(userMamaria.getEmail());
+        objLoginPage.fillInFieldPassword(userMamaria.getPassword());
         objLoginPage.clickToLoginButton();
 
         objMainPage.waitForLoadingMainPage();
@@ -107,8 +128,8 @@ public class AuthorizationTest {
 
 
         objLoginPage.waitForLoadingLoginPage();
-        objLoginPage.fillInFieldEmail(Registration.EMAIL);
-        objLoginPage.fillInFieldPassword(Registration.PASSWORD);
+        objLoginPage.fillInFieldEmail(userMamaria.getEmail());
+        objLoginPage.fillInFieldPassword(userMamaria.getPassword());
         objLoginPage.clickToLoginButton();
 
         objMainPage.waitForLoadingMainPage();
@@ -118,7 +139,7 @@ public class AuthorizationTest {
     }
     @After
     public void teardown() {
-        userMaria.deleteUser(userAssesToken);
+        userAPI.deleteUser(userAssesToken);
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
         String text = objMainPage.getTextFromButton();

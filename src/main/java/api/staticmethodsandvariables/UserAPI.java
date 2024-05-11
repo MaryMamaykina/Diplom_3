@@ -1,7 +1,7 @@
 package api.staticmethodsandvariables;
+
+import data.UserWithPassword;
 import io.restassured.response.Response;
-import api.dto.*;
-import ui.data.*;
 
 import static io.restassured.RestAssured.given;
 
@@ -9,9 +9,7 @@ public class UserAPI extends StellarBurgersAPI {
     private static final String handleForCreateUser = "api/auth/register";
     private static final String handleForDeleteUser = "api/auth/user";
     private static final String handleForLoginUser = "api/auth/login";
-    public Response createUserMaria() {
-        return createUser(Registration.EMAIL, Registration.PASSWORD, Registration.NAME);
-    }
+
 
     public Response deleteUser (String accessToken) {
         Response response = given()
@@ -21,25 +19,21 @@ public class UserAPI extends StellarBurgersAPI {
                 .delete(handleForDeleteUser);
         return response;
     }
-    public Response loginUserMaria() {
-        return loginUser(Registration.EMAIL, Registration.PASSWORD);
-    }
-    private Response createUser(String givenEmail, String givenPassword, String givenName) {
-        CreateUserRequest newUser = new CreateUserRequest(givenEmail, givenPassword, givenName);
+
+    public Response createUser(UserWithPassword user) {
         Response response = given()
                 .header("Content-type", "application/json")
                 .and()
-                .body(newUser)
+                .body(user)
                 .when()
                 .post(handleForCreateUser);
         return response;
     }
-    public Response loginUser(String givenEmail, String givenPassword) {
-        LoginUserRequest newUser = new LoginUserRequest(givenEmail, givenPassword);
+    public Response loginUser(UserWithPassword user) {
         Response response = given()
                 .header("Content-type", "application/json")
                 .and()
-                .body(newUser)
+                .body(user)
                 .when()
                 .post(handleForLoginUser);
         return response;
