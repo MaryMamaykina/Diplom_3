@@ -2,6 +2,8 @@ import api.dto.CreateUserSuccessfulResponse;
 import api.staticmethodsandvariables.UserAPI;
 import data.UserWithPassword;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Description;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,6 +48,8 @@ public class RegistrationTest {
     }
 
     @Test
+    @DisplayName("Регистрация работает?")
+    @Description("Проверка кейса Успешная регистрация")
     public void doesRegistrationWork(){
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -73,6 +77,8 @@ public class RegistrationTest {
         Assert.assertEquals("Registration doesn't work", expectedText, actualText);
     }
     @Test
+    @DisplayName("Регистрация с коротким паролем не работает?")
+    @Description("Получение ошибки для некорректного пароля (менее шести символов)")
     public void doesNotRegistrationWorkWithShortPassword(){
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();

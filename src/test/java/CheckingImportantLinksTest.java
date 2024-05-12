@@ -1,4 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,6 +39,8 @@ public class CheckingImportantLinksTest {
     }
 
     @Test
+    @DisplayName("Переход в личный кабинет по клику на кнопку 'Личный кабинет' работает?")
+    @Description("Проверка перехода в личный кабинет по клику на кнопку 'Личный кабинет'")
     public void doesSwitchingToPersonalAccountWithPersonalAccountButtonWork(){
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -51,6 +55,8 @@ public class CheckingImportantLinksTest {
     }
 
     @Test
+    @DisplayName("Переход на главную страницу по клику на кнопку 'Конструктор' работает?")
+    @Description("Проверка перехода из личного кабинета на главную страницу по клику на кнопку 'Конструктор'")
     public void doesSwitchingToMainPageWithConstructorButtonWork(){
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -68,6 +74,8 @@ public class CheckingImportantLinksTest {
     }
 
     @Test
+    @DisplayName("Переход на главную страницу по клику на логотип 'Stellar Burgers' работает?")
+    @Description("Проверка перехода из личного кабинета на главную страницу по клику на логотип 'Stellar Burgers'")
     public void doesSwitchingToMainPageWithStellarBurgersLogoWork(){
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -75,7 +83,7 @@ public class CheckingImportantLinksTest {
 
         LoginPage objLoginPage = new LoginPage(webDriver);
         objLoginPage.waitForLoadingLoginPage();
-        objLoginPage.clickToStellaBurgerLogo();
+        objLoginPage.clickToStellarBurgersLogo();
 
         objMainPage.waitForLoadingMainPage();
         String actualText = objMainPage.getTextFromHeadline();
@@ -85,6 +93,8 @@ public class CheckingImportantLinksTest {
     }
 
     @Test
+    @DisplayName("Переход на таб 'Булки' работает?")
+    @Description("Проверка работы перехода на таб 'Булки'")
     public void doesSwitchingToRollsTabWork() {
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -102,6 +112,8 @@ public class CheckingImportantLinksTest {
     }
 
     @Test
+    @DisplayName("Переход на таб 'Соусы' работает?")
+    @Description("Проверка работы перехода на таб 'Соусы'")
     public void doesSwitchingToSaucesTabWork() {
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -113,6 +125,8 @@ public class CheckingImportantLinksTest {
     }
 
     @Test
+    @DisplayName("Переход на таб 'Начинки' работает?")
+    @Description("Проверка работы перехода на таб 'Начинки'")
     public void doesSwitchingToFillingsTabWork() {
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();

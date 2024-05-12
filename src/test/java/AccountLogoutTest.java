@@ -2,6 +2,8 @@ import api.dto.CreateUserSuccessfulResponse;
 import api.staticmethodsandvariables.UserAPI;
 import data.UserWithPassword;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,6 +51,8 @@ public class AccountLogoutTest {
     }
 
     @Test
+    @DisplayName("Кнопка'Выйти' в личном кабинете работает?")
+    @Description("Проверка выхода по кнопке 'Выйти' в личном кабинете")
     public void doesButtonLogoutOnProfilePageWork(){
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();

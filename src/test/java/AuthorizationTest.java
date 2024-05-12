@@ -2,6 +2,8 @@ import api.dto.CreateUserSuccessfulResponse;
 import api.staticmethodsandvariables.UserAPI;
 import data.UserWithPassword;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,6 +49,8 @@ public class AuthorizationTest {
     }
 
     @Test
+    @DisplayName("Вход по кнопке 'Войти в аккаунт' работает?")
+    @Description("Проверка входа по кнопке 'Войти в аккаунт' на главной")
     public void doesLoginWithLoginAccountButtonWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
@@ -66,6 +70,8 @@ public class AuthorizationTest {
 
     }
     @Test
+    @DisplayName("Вход по кнопке 'Личный кабинет' работает?")
+    @Description("Проверка входа через кнопку 'Личный кабинет'")
     public void doesLoginWithPersonalAccountButtonWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
@@ -85,6 +91,8 @@ public class AuthorizationTest {
     }
 
     @Test
+    @DisplayName("Вход по кнопке входа на странице регистрации работает?")
+    @Description("Проверка входа через кнопку в форме регистрации")
     public void doesLoginWithLoginButtonFromRegisterPageWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
@@ -111,7 +119,9 @@ public class AuthorizationTest {
     }
 
     @Test
-    public void doesLoginWithPasswordRecoveryButtonWork (){
+    @DisplayName("Вход по кнопке входа на странице восстановления пароля работает?")
+    @Description("Проверка входа через кнопку в форме восстановления пароля")
+    public void doesLoginFromPasswordRecoveryPageWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
