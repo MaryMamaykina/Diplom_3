@@ -33,7 +33,6 @@ public class AuthorizationTest {
         };
     }
 
-
     @Before
     public void setup() {
         WebDriverManager.chromedriver().clearDriverCache().clearResolutionCache().setup();
@@ -48,7 +47,7 @@ public class AuthorizationTest {
     }
 
     @Test
-    public void doesLoginWithLoginAccountButtonWorks (){
+    public void doesLoginWithLoginAccountButtonWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -67,7 +66,7 @@ public class AuthorizationTest {
 
     }
     @Test
-    public void doesLoginWithPersonalAccountButtonWorks (){
+    public void doesLoginWithPersonalAccountButtonWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -86,7 +85,7 @@ public class AuthorizationTest {
     }
 
     @Test
-    public void doesLoginWithLoginButtonFromRegisterPageWorks (){
+    public void doesLoginWithLoginButtonFromRegisterPageWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -97,7 +96,7 @@ public class AuthorizationTest {
         objLoginPage.goToRegisterPage();
 
         RegisterPage objRegistrationPage = new RegisterPage(webDriver);
-        objRegistrationPage.waitForLoadingLoginPage();
+        objRegistrationPage.waitForLoadingRegisterPage();
         objRegistrationPage.clickLoginButton();
 
         objLoginPage.waitForLoadingLoginPage();
@@ -112,7 +111,7 @@ public class AuthorizationTest {
     }
 
     @Test
-    public void doesLoginWithPasswordRecoveryButtonWorks (){
+    public void doesLoginWithPasswordRecoveryButtonWork (){
 
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
@@ -140,25 +139,6 @@ public class AuthorizationTest {
     @After
     public void teardown() {
         userAPI.deleteUser(userAssesToken);
-        MainPage objMainPage = new MainPage(webDriver);
-        objMainPage.openPage();
-        String text = objMainPage.getTextFromButton();
-        switch (text){
-            case "Оформить заказ":
-                objMainPage.clickToLoginAccountButton();
-
-                ProfilePage objProfilePage = new ProfilePage(webDriver);
-                objProfilePage.waitForLoadingProfilePage();
-                objProfilePage.clickToExitButton();
-
-                LoginPage objLoginPage = new LoginPage(webDriver);
-                objLoginPage.waitForLoadingLoginPage();
-
-                break;
-            case "Войти в аккаунт":
-                break;
-        }
         webDriver.quit();
-
     }
 }

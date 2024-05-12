@@ -13,13 +13,14 @@ public class RegisterPage {
     }
 
     private final By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
-    private final By inputName = By.xpath("//label[text()='Имя']/parent::div");
-    private final By inputEmail = By.xpath("//label[text()='Email']/parent::div");
-    private final By inputPassword = By.name("Пароль");
+    private final By inputName = By.xpath("//label[text()='Имя']/parent::div/input");
+    private final By inputEmail = By.xpath("//label[text()='Email']/parent::div/input");
+    private final By inputPassword = By.xpath("//input[@type='password']");
     private final By loginButton = By.xpath("//a[text()='Войти']");
+    private final By errorMessage = By.xpath("//p[text()='Некорректный пароль']");
 
-    public void waitForLoadingLoginPage(){
-        new WebDriverWait(webDriver, Duration.ofMillis(500L))
+    public void waitForLoadingRegisterPage(){
+        new WebDriverWait(webDriver, Duration.ofMillis(2000L))
                 .until(ExpectedConditions.elementToBeClickable(registerButton));
     }
     public void fillInFieldName(String someName){
@@ -42,6 +43,13 @@ public class RegisterPage {
     }
     public void clickLoginButton(){
         clickSomewhere(loginButton);
+    }
+    public void waitForError(){
+        new WebDriverWait(webDriver, Duration.ofMillis(2000L))
+                .until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+    }
+    public String getErrorText () {
+        return webDriver.findElement(errorMessage).getText();
     }
 
     private void clickSomewhere(By locator){

@@ -18,6 +18,7 @@ public class LoginPage {
     private final By inputPassword = By.name("Пароль");
     private final By registerButton = By.xpath("//a[text()='Зарегистрироваться']");
     private final By passwordRecoveryButton = By.xpath("//a[text()='Восстановить пароль']");
+    private final By constructorButton = By.xpath("//p[text()='Конструктор']");
 
     public void waitForLoadingLoginPage(){
         waitForSomethingToBeClickable(loginButton);
@@ -41,7 +42,6 @@ public class LoginPage {
     public void goToPasswordRecoveryPage(){
         clickSomewhere(passwordRecoveryButton);
     }
-
 
     private void clickSomewhere(By locator){
         webDriver.findElement(locator).click();
