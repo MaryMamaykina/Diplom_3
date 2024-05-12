@@ -47,7 +47,7 @@ public class AccountLogoutTest {
 
         userAPI = new UserAPI();
         userMamaria = new UserWithPassword("Мария", "MaryMamaykina@mail.ru", "MaryMamaykina");
-        userAssesToken = userAPI.createUser(userMamaria).as(CreateUserSuccessfulResponse.class).getAccessToken().replace("Bearer ","");
+        userAPI.createUser(userMamaria).as(CreateUserSuccessfulResponse.class);
     }
 
     @Test
@@ -88,6 +88,7 @@ public class AccountLogoutTest {
     }
     @After
     public void teardown() {
+        userAssesToken = userAPI.loginUser(userMamaria).as(CreateUserSuccessfulResponse.class).getAccessToken().replace("Bearer ","");
         userAPI.deleteUser(userAssesToken);
         webDriver.quit();
     }
