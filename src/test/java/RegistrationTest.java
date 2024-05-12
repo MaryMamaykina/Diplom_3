@@ -100,7 +100,7 @@ public class RegistrationTest {
         MainPage objMainPage = new MainPage(webDriver);
         objMainPage.openPage();
         String textFromButton = objMainPage.getTextFromButton();
-        if (textFromButton == "Оформить заказ"){
+        if (textFromButton.equals("Оформить заказ")){
             userAPI = new UserAPI();
             userAssesToken = userAPI.loginUser(userMamaria).as(CreateUserSuccessfulResponse.class).getAccessToken().replace("Bearer ","");
             userAPI.deleteUser(userAssesToken);
