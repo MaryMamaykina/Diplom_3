@@ -19,7 +19,6 @@ public class UserAPI extends StellarBurgersAPI {
                 .delete(handleForDeleteUser);
         return response;
     }
-
     public Response createUser(UserWithPassword user) {
         Response response = given()
                 .header("Content-type", "application/json")
